@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Player/Sprite.gd" type="Script" id=2]
+[ext_resource path="res://Player/CEA_player.png" type="Texture" id=3]
+[ext_resource path="res://Data/Hitbox.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 13, 14.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 16, 16 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+rotation_speed = 1
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+hframes = 8
+frame = 1
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1.5 )
+shape = SubResource( 3 )
+
+[node name="Player_Hitbox" parent="." instance=ExtResource( 4 )]
+
+[node name="CollisionShape2D" parent="Player_Hitbox" index="0"]
+shape = SubResource( 2 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, -26 )
+
+[node name="Target" type="Position2D" parent="."]
+position = Vector2( 0, -128 )
+
+[node name="shot_speed" type="Timer" parent="."]
+wait_time = 0.08
+
+[connection signal="area_entered" from="Player_Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="timeout" from="shot_speed" to="." method="_on_shot_speed_timeout"]
+
+[editable path="Player_Hitbox"]
