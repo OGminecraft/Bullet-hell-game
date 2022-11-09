@@ -1,8 +1,9 @@
+
 the player has to attempt to kill all the enemys in the level and collect coins to by things in the shop between stages but the enemys will be like towers that shoot bullets that when they come in contact with the player will damage them takeing way from there HP, the towers will kinda be like somthing from a tower defence game or bullets that just randomly spawn (not on the player) that when the player is hit with one of these bullets there hp will be reduced.
 
 the player will also be able to fire bullets in the direction they currently looking that when come in contact with an enemy will damage them or if it comes incontact with a bullet it will destroy the bullet depending on what gun they have, they will be able to buy guns in the shop.
 
-there will be walls that the playercant move through nor can enemys or bullets and they will be unbreakable and there can be a breakable version to.
+there will be walls that the player cant move through nor can enemys or bullets and they will be unbreakable and there can be a breakable version to.
 
 at the shop the player can buy increased health, damage, speed, fire rate, etc., they will also be able to buy armor and ablitys like dash 
 
@@ -11,7 +12,7 @@ People will be able to make there own levels with an level editor and post them 
 and maby a campain that is save-able?
 
 
-
+idea 1:
 Campain:
 The campain could be after you finish every level (in the campain) you get an element that once you get to elements you can combind them to create a new element and your goal will be to create every new element in the game and you will be able to make permenant upgrades to your character (for that save) by making elements into health upgrades, armor upgrades, dmg upgrades, etc..  that will all be in between levels on the "map" that will let you choose to go to the next new level in your adventure or go back and get a higher score on a previos level, the higher the score you get on a level, better the element value 
 
@@ -24,6 +25,11 @@ how you will create the new elements will be by a method called fusion in a mach
 the campain will also be save-able
 
 the company behind all of this is CEA(CARBON EXPIRIMENTATION ASSOCIATION) and they could have found out something revelutionary about carbon or something there logo can be seen in the player sprite
+
+
+idea 2:
+you are anti virus fighting viruses
+
 
 Pickups:
 Hearts:will eithir heal the player by half of the MaxHP or current Hp when picked up

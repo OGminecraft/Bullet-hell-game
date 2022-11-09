@@ -6,5 +6,6 @@ func create_pickup_collected_effect():
 	pass
 
 func _on_Hurtbox_area_entered(area):
-	create_pickup_collected_effect()
-	queue_free()
+	if area.name == "Player_Hitbox":
+		create_pickup_collected_effect()
+		queue_free()

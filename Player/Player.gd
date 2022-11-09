@@ -1,30 +1,18 @@
-extends KinematicBody2D
+extends "res://Player/Player_init.gd"
 
 #Initialize exports
-export var rotation_speed = 0
-export var coins_per_coin = 1
+export var fire_rate = 0.08#secs
+export var dash_cooldown = 5#secs
 export var health = 100
 export var max_health = 100
-
-#Initialize vars
-var velocity = Vector2.ZERO
-var coins = 0
-var can_shoot = true
-
-#Initialize Consts
-const MAX_SPEED = 400
-const ACCELERATION = 800
-const MAX_ROTATION_SPEED = 5
-const FRICTION = 810
-const BULLET_PATH = preload("res://Player/Guns/Player_Bullet_1.tscn")
-const DEATH_SCREEN = preload("res://Data/UI/death_screen.tscn")
+export var rotation_speed = 1.3
+export var coins_per_coin = 1
 
 #create signals
 signal dead
 
 #Key Binds so the player can interact with the player
 func _physics_process(delta):
-	
 	#Movement/Player Rotation
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -40,14 +28,19 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("rotate_right"):
 		rotate(calc_rotate_speed(rotation_speed, delta, MAX_ROTATION_SPEED))
-		print(rotation_degrees)
 	if Input.is_action_pressed("rotate_left"):
 		rotate(-calc_rotate_speed(rotation_speed, delta, MAX_ROTATION_SPEED))
-		print(rotation_degrees)
-		
 	if Input.is_action_pressed("shoot"):
-		print(rotation_degrees)
 		create_bullet()
+	
+	if Input.is_action_just_pressed("dash") and can_dash == true and dash_on_cooldown == false:
+		print("dash")
+		_play_dash_effect()
+		move_local_x($Target.position.x)
+		move_local_y($Target.position.y)
+		dash_on_cooldown = true
+		$dash_cooldown.start(dash_cooldown)
+	
 	if health <= 0:
 		emit_signal("dead")
 		queue_free()#player_dead = true
@@ -73,11 +66,7 @@ func _on_Hitbox_area_entered(area):
 	if area.name == "Spinner_bullet_hitbox":
 		health -= 25
 		print(health)
-
-func calc_rotate_speed(RS, delta, MRS):
-	return (RS * delta * MRS)
-	
-	
+		
 #So the player can shoot bullets	
 func create_bullet():
 	if can_shoot == true:
@@ -89,8 +78,22 @@ func create_bullet():
 		bullet.velocity = $Target.global_position - bullet.position
 	else:return
 	can_shoot = false
-	var shot_speed = get_node("shot_speed")
-	shot_speed.start()
+	$shot_speed.start(fire_rate)
+	
 #So the player dosent shoot hundreds of bullets a second
 func _on_shot_speed_timeout():
 	can_shoot = true
+
+func _play_dash_effect():
+	pass
+
+func _on_dash_check_area_area_entered(_area):
+	can_dash = false
+func _on_dash_check_area_area_exited(_area):
+	can_dash = true
+func _on_dash_check_area_body_entered(_body):
+	can_dash = false
+func _on_dash_check_area_body_exited(_body):
+	can_dash = true
+func _on_dash_cooldown_timeout():
+	dash_on_cooldown = false

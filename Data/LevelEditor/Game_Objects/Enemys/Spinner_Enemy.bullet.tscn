@@ -11,6 +11,8 @@ extents = Vector2( 3, 3 )
 extents = Vector2( 3, 3 )
 
 [node name="Spinner_bullet" type="KinematicBody2D"]
+collision_layer = 16
+collision_mask = 16
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

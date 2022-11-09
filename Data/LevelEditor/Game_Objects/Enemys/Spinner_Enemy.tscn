@@ -25,17 +25,17 @@ animations = [ {
 } ]
 
 [node name="Spinner_Enemy" type="StaticBody2D"]
+collision_layer = 26
+collision_mask = 18
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1, 0 )
 frames = SubResource( 4 )
 playing = true
-
-[node name="rotation_target" type="Position2D" parent="."]
-position = Vector2( 37, -40 )
 
 [node name="shot_timer" type="Timer" parent="."]
 wait_time = 0.2

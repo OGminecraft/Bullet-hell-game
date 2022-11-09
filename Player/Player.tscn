@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Sprite.gd" type="Script" id=2]
@@ -11,9 +11,13 @@ extents = Vector2( 13, 14.5 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 16 )
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 12, 16 )
+
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 49
+collision_mask = 49
 script = ExtResource( 1 )
-rotation_speed = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
@@ -34,12 +38,30 @@ shape = SubResource( 2 )
 position = Vector2( 0, -26 )
 
 [node name="Target" type="Position2D" parent="."]
-position = Vector2( 0, -128 )
+position = Vector2( 0, -112 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="dash_check_area" parent="Target" instance=ExtResource( 4 )]
+position = Vector2( 24, 8 )
+
+[node name="CollisionShape2D" parent="Target/dash_check_area" index="0"]
+position = Vector2( -24, -8 )
+shape = SubResource( 4 )
 
 [node name="shot_speed" type="Timer" parent="."]
 wait_time = 0.08
 
+[node name="dash_cooldown" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Player_Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_entered" from="Target/dash_check_area" to="." method="_on_dash_check_area_area_entered"]
+[connection signal="area_exited" from="Target/dash_check_area" to="." method="_on_dash_check_area_area_exited"]
+[connection signal="body_entered" from="Target/dash_check_area" to="." method="_on_dash_check_area_body_entered"]
+[connection signal="body_exited" from="Target/dash_check_area" to="." method="_on_dash_check_area_body_exited"]
 [connection signal="timeout" from="shot_speed" to="." method="_on_shot_speed_timeout"]
+[connection signal="timeout" from="dash_cooldown" to="." method="_on_dash_cooldown_timeout"]
 
 [editable path="Player_Hitbox"]
+[editable path="Target/dash_check_area"]
